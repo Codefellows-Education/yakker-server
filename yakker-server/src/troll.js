@@ -1,6 +1,7 @@
 import React from 'react';
 import ClientConnection from './lib/subscriber';
 import Publisher from './lib/publisher';
+import './design/troll.scss';
 
 const Q = new Publisher();
 const TrollClient = new ClientConnection('troll');
@@ -15,16 +16,16 @@ class TrollJohn extends React.Component {
     };
 
     TrollClient.subscribe('message', payload => {
-      this.updateWords(payload);
+      this.updateWords(payload.payload);
+      this.updateHistory(payload.messageHistory);
     });
 
-    TrollClient.subscribe('history', payload =>{
-      console.log('hellowi am in history and adam is drunk')
-      this.setState({history:payload})
-
-    });
   }
 
+  updateHistory = messageHistory => {
+    console.log('in update history with: ', messageHistory);
+    this.setState({history: [messageHistory]});
+  }
 
   updateWords = words => {
     console.log('in updateWords with words: ', words);
@@ -32,13 +33,11 @@ class TrollJohn extends React.Component {
   };
 
   handleSubmit = event => {
-    //console.log('submmit',event.target[0].value);
     event.preventDefault();
     Q.publish('troll', 'message', event.target[0].value);
   };
 
   handleNewWords = event => {
-    console.log('in handleNewWords');
     console.log(event.target.value)
     this.setState({ typedInput: event.target.value });
   };
@@ -47,9 +46,11 @@ class TrollJohn extends React.Component {
     return (
       <>
         <h2>Where the words go: {this.state.words}</h2>
-        {this.state.history.map(word => {
-          return <p>{word}</p>
-        })}
+        <ul>
+        {this.state.history.map(((word, i) => {
+          return (<li className="messageHistory" key={i}>{word}</li>)
+        }))}
+        </ul>
         <form onSubmit={this.handleSubmit}>
           <input
             name='typedInput'

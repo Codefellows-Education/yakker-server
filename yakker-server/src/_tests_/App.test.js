@@ -38,6 +38,20 @@ describe('socket.io app', () => {
     expect(component.find("form").exists()).toBeTruthy();
     expect(component.find("h2").exists()).toBeTruthy();
   });
+  
+  it("changes state on click", () => {
+    let component = mount(<Troll />);
+    let input = component.find("input");
+    let newForm = component.find("form");
+
+    input.simulate("change", { target: { value: "Meow" } });
+    newForm.simulate("submit");
+    let finder = component.find("li");
+    let clicker = component.find("#like");
+    clicker.simulate("click");
+    expect(finder.exists()).toBeTruthy();
+    expect(component.state("liked").length).toEqual(1);
+  });
 
 });
 

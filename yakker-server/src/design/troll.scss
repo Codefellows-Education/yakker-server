@@ -1,4 +1,31 @@
+
 .messageHistory{
   display: block;
   padding: 5px;
+
+  .like{
+    padding-right: 5px;
+    transition: all .2s ease-in-out;
+
+    &:hover{
+      transform: scale(2);
+    }
+  }
+}
+
+.favorite{
+  list-style-type: none;
+
+  span{
+    margin-top: 1em;
+  }
+
+  li{
+    margin-top: 10px;
+    list-style-type: none;
+  }
+
+  .unlike{
+    padding-right: 5px
+  }
 }

@@ -15,18 +15,16 @@ describe('socket.io app', () => {
       <Troll />
     );
 
-    let formData = 'words';
-    let submit = component.find("input");
-    submit.simulate("submit");
-
-    setTimeout(() => {
-      expect(component.find("li").exists()).toBeTruthy();
-
-      let nameButton = component.find("input");
-      nameButton.simulate("submit");
-
-      expect(component.find(".keys").exists()).toBeTruthy();
-    }, 1000);
+    let input = component.find("input");
+    let newForm = component.find("form");
+    input.simulate("change",  {target: {value: 'words'}});
+    newForm.simulate("submit");
+    
+    let currentState = component.state();
+    // console.log('currentState', currentState);
+    
+    //expect(component.find("li").exists()).toBeTruthy();
+    expect(currentState.typedInput).toEqual('words');
 
   });
 
@@ -38,20 +36,7 @@ describe('socket.io app', () => {
     expect(component.find("form").exists()).toBeTruthy();
     expect(component.find("h2").exists()).toBeTruthy();
   });
-  
-  it("changes state on click", () => {
-    let component = mount(<Troll />);
-    let input = component.find("input");
-    let newForm = component.find("form");
 
-    input.simulate("change", { target: { value: "Meow" } });
-    newForm.simulate("submit");
-    let finder = component.find("li");
-    let clicker = component.find("#like");
-    clicker.simulate("click");
-    expect(finder.exists()).toBeTruthy();
-    expect(component.state("liked").length).toEqual(1);
-  });
 
 });
 

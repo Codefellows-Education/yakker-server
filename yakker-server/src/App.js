@@ -1,5 +1,6 @@
 import React from 'react';
 import TrollJohn from './troll.js';
+import './design/app.scss';
 
 const App = props => {
   return (

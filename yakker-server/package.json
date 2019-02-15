@@ -5,8 +5,10 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "animate.css": "3.7.0",
     "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "1.9.1",
+    "node-sass": "4.11.0",
     "react": "16.7.0-alpha.2 - next",
     "react-dom": "16.7.0-alpha.2 - next",
     "react-scripts": "2.1.1",

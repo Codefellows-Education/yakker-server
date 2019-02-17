@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const SERVER = process.env.Q_SERVER || 'http://localhost:3333';
+const SERVER = process.env.Q_SERVER || 'https://eivy-q-server.herokuapp.com';
 
 /** Class representing a subscriber instance to the Queue. */
 class Q {
